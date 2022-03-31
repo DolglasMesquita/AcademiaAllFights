@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/dolglas/AcademiaAllFights/AcademiaAllFights.API/AcademiaAllFights.API.csproj": {}
+    "C:\\Users\\dolgl\\Documents\\Visual Studio 2019\\Workspace\\AcademiaAllFights\\AcademiaAllFights.API\\AcademiaAllFights.API.csproj": {}
   },
   "projects": {
-    "/home/dolglas/AcademiaAllFights/AcademiaAllFights.API/AcademiaAllFights.API.csproj": {
+    "C:\\Users\\dolgl\\Documents\\Visual Studio 2019\\Workspace\\AcademiaAllFights\\AcademiaAllFights.API\\AcademiaAllFights.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/dolglas/AcademiaAllFights/AcademiaAllFights.API/AcademiaAllFights.API.csproj",
+        "projectUniqueName": "C:\\Users\\dolgl\\Documents\\Visual Studio 2019\\Workspace\\AcademiaAllFights\\AcademiaAllFights.API\\AcademiaAllFights.API.csproj",
         "projectName": "AcademiaAllFights.API",
-        "projectPath": "/home/dolglas/AcademiaAllFights/AcademiaAllFights.API/AcademiaAllFights.API.csproj",
-        "packagesPath": "/home/dolglas/.nuget/packages/",
-        "outputPath": "/home/dolglas/AcademiaAllFights/AcademiaAllFights.API/obj/",
+        "projectPath": "C:\\Users\\dolgl\\Documents\\Visual Studio 2019\\Workspace\\AcademiaAllFights\\AcademiaAllFights.API\\AcademiaAllFights.API.csproj",
+        "packagesPath": "C:\\Users\\dolgl\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\dolgl\\Documents\\Visual Studio 2019\\Workspace\\AcademiaAllFights\\AcademiaAllFights.API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/dolglas/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\dolgl\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,6 +40,18 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[5.0.10, )"
@@ -50,11 +64,19 @@
               "target": "Package",
               "version": "[5.0.10, )"
             },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[5.0.10, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.Extensions.Identity.Core": {
               "target": "Package",
               "version": "[5.0.10, )"
             },
@@ -81,7 +103,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.402/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

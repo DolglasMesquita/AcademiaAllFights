@@ -1,12 +1,15 @@
 using AcademiaAllFights.API.Data;
 using AcademiaAllFights.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
+
 
 namespace AcademiaAllFights.API.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ArteMarcialController : ControllerBase
     {
 
@@ -18,54 +21,72 @@ namespace AcademiaAllFights.API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll() {
-            var artesmarciais = _repository.GetAllArtesMarciais();
-            if(artesmarciais == null) return BadRequest("Nenhuma arte marcial cadastrada!");
+        public async Task<IActionResult> GetAll() {
+            var artesmarciais = await _repository.GetAllArtesMarciaisAsync();
+            if(artesmarciais == null) return NotFound("Nenhuma arte marcial cadastrada!");
+
+            return Ok(artesmarciais);
+        }
+
+        [HttpGet("status/{status:bool}")]
+        public async Task<IActionResult> GetAllAtivo(bool status)
+        {
+            var artesmarciais = await _repository.GetAllArtesMarciaisAtivoAsync(status);
+            if (artesmarciais == null) return NotFound("Nenhuma arte marcial cadastrada!");
 
             return Ok(artesmarciais);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(int id) {
-            var artemarcial = _repository.GetArteMarcialById(id);
-            if(artemarcial == null) return BadRequest("Arte Marcial não encontrada");
+        public async Task<IActionResult> GetById(int id) {
+            var artemarcial = await _repository.GetArteMarcialByIdAsync(id);
+            if(artemarcial == null) return NotFound("Arte Marcial não encontrada");
 
             return Ok(artemarcial);
         }
 
         [HttpPost]
-        public IActionResult Post(ArteMarcial arteMarcial) {
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Post(ArteMarcial arteMarcial) {
             _repository.Add(arteMarcial);
-            if(!_repository.SaveChanges()) return BadRequest("ArteMarcial não cadastrada");
-
-            return Created("ArteMarcial criada com sucesso!", arteMarcial);
+            if(await _repository.SaveChangesAsync()) return Created("ArteMarcial criada com sucesso!", arteMarcial); 
+            
+            return NotFound("ArteMarcial não cadastrada");
         }
 
+
         [HttpPut("{id}")]
-        public IActionResult Put(int id, ArteMarcial arteMarcial) {
-            var alu = _repository.GetArteMarcialById(id);
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Put(int id, ArteMarcial arteMarcial) {
+            var alu = await _repository.GetArteMarcialByIdAsync(id);
             if (alu == null) return BadRequest("ArteMarcial não encontrada");
             _repository.Update(arteMarcial);
-            if(!_repository.SaveChanges()) return BadRequest("ArteMarcial não atualizada");
-            return Ok("ArteMarcial atualizada com sucesso!");
+            if(await _repository.SaveChangesAsync()) return Ok("ArteMarcial atualizada com sucesso!"); 
+            
+            return BadRequest("ArteMarcial não atualizada");
+            
         }
 
         [HttpPatch("{id}")]
-        public IActionResult Patch(int id, ArteMarcial arteMarcial) {
-            var alu = _repository.GetArteMarcialById(id);
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Patch(int id, ArteMarcial arteMarcial) {
+            var alu = await _repository.GetArteMarcialByIdAsync(id);
             if (alu == null) return BadRequest("ArteMarcial não encontrado");
             _repository.Update(arteMarcial);
-            if(!_repository.SaveChanges()) return BadRequest("ArteMarcial não atualizado");
-            return Ok("ArteMarcial atualizado com sucesso!");
+            if(await _repository.SaveChangesAsync()) return Ok("ArteMarcial atualizado com sucesso!"); 
+            
+            return BadRequest("ArteMarcial não atualizado");
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id) {
-            var ArteMarcial = _repository.GetArteMarcialById(id);
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(int id) {
+            var ArteMarcial = await _repository.GetArteMarcialByIdAsync(id);
             if (ArteMarcial == null) return BadRequest("ArteMarcial não encontrado");
             _repository.Delete(ArteMarcial);
-            if(!_repository.SaveChanges()) return BadRequest("ArteMarcial não removido");
-            return Ok("ArteMarcial removido com sucesso!");
+            if(await _repository.SaveChangesAsync()) return Ok("ArteMarcial removido com sucesso!"); 
+            
+            return BadRequest("ArteMarcial não removido");
         }
     }
 }

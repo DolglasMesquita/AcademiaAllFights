@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using AcademiaAllFights.API.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AcademiaAllFights.API.Data
 {
-    public class AllFightsContext : DbContext
+    public class AllFightsContext : IdentityDbContext<Usuario, Funcao, int,
+                                        IdentityUserClaim<int>, UsuarioFuncoes, IdentityUserLogin<int>,
+                                        IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public DbSet<Aluno> Alunos { get; set; }
         public DbSet<Professor> Professores { get; set; }
@@ -20,24 +24,41 @@ namespace AcademiaAllFights.API.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
+            builder.Entity<UsuarioFuncoes>(userRole =>
+            {
+                userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
+
+                userRole.HasOne(ur => ur.Funcao)
+                        .WithMany(r => r.UsuarioFuncoes)
+                        .HasForeignKey(ur => ur.RoleId)
+                        .IsRequired();
+
+                userRole.HasOne(uf => uf.Usuario)
+                        .WithMany(f => f.UsuarioFuncoes)
+                        .HasForeignKey(uf => uf.UserId)
+                        .IsRequired();
+            });
+
             builder.Entity<AlunoArteMarcial>().HasKey(am => new {am.AlunoId, am.ArteMarcialId});
 
             builder.Entity<Professor>().HasData(new List<Professor>()
             {
-                new Professor(1, "Lauro", "25496857488"),
-                new Professor(2, "Roberto", "36587456914"),
-                new Professor(3, "Ronaldo", "54879652147"),
-                new Professor(4, "Rodrigo", "16587412599"),
-                new Professor(5, "Alexandre", "12569854211"),
+                new Professor(1, "Lauro", "25496857488", "89546823", 2),
+                new Professor(2, "Roberto", "36587456914", "85478622", 3),
+                new Professor(3, "Ronaldo", "54879652147", "25647855", 4),
+                new Professor(4, "Rodrigo", "16587412599", "36587742", 5),
+                new Professor(5, "Alexandre", "12569854211", "54178854", 1),
             });
 
             builder.Entity<ArteMarcial>().HasData(new List<ArteMarcial>
             {
-                new ArteMarcial(1, "Karatê", 1),
-                new ArteMarcial(2, "Judô", 1),
-                new ArteMarcial(3, "Jiujitsu", 2),
-                new ArteMarcial(4, "Morganti Ju-jitsu", 3),
-                new ArteMarcial(5, "Boxe", 4),
+                new ArteMarcial(1, "Karatê"),
+                new ArteMarcial(2, "Judô"),
+                new ArteMarcial(3, "Jiujitsu"),
+                new ArteMarcial(4, "Morganti Ju-jitsu"),
+                new ArteMarcial(5, "Boxe"),
             });
 
             builder.Entity<Aluno>().HasData(new List<Aluno>()

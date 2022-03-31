@@ -7,18 +7,15 @@ namespace AcademiaAllFights.API.Models
 
         }
 
-        public ArteMarcial(int id, string nome, int professorId)
+        public ArteMarcial(int id, string nome)
         {
             Id = id;
             Nome = nome;
-            ProfessorId = professorId;
         }
 
         public int Id { get; set; }
         public string Nome { get; set; }
         public bool Ativo { get; set; } = true;
-        public int ProfessorId { get; set; }
-        public Professor Professor { get; set; }
 
     }
 }

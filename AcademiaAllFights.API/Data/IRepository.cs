@@ -1,4 +1,5 @@
 using AcademiaAllFights.API.Models;
+using System.Threading.Tasks;
 
 namespace AcademiaAllFights.API.Data
 {
@@ -7,17 +8,23 @@ namespace AcademiaAllFights.API.Data
         public void Add<T>(T entity) where T : class;
         public void Update<T>(T entity) where T : class;
         public void Delete<T>(T entity) where T : class;
-        public bool SaveChanges();
+        public Task<bool> SaveChangesAsync();
 
-        Aluno[] GetAllAlunos();
-        Aluno[] GetAlunosByArteMarcialId(int id);
-        Aluno GetAlunoById(int id);
+        Task<AlunoArteMarcial> GetAlunoArteMarcialAsync(int idAluno, int idArteMarcial);
+        Task<AlunoArteMarcial[]> GetAlunoArteMarcialAlunoAsync(int id);
 
-        Professor[] GetAllProfessores();
-        Professor GetProfessorById(int id);
+        Task<Aluno[]> GetAllAlunosAsync();
+        Task<Aluno[]> GetAlunosByStatusAsync(bool status);
+        Task<Aluno[]> GetAlunosByArteMarcialIdAsync(int id);
+        Task<Aluno> GetAlunoByIdAsync(int id);
 
-        ArteMarcial[] GetAllArtesMarciais();
-        ArteMarcial GetArteMarcialById(int id);
+        Task<Professor[]> GetAllProfessoresAsync();
+        Task<Professor[]> GetProfessoresByStatusAsync(bool status);
+        Task<Professor> GetProfessorByIdAsync(int id);
+
+        Task<ArteMarcial[]> GetAllArtesMarciaisAsync();
+        Task<ArteMarcial[]> GetAllArtesMarciaisAtivoAsync(bool status);
+        Task<ArteMarcial> GetArteMarcialByIdAsync(int id);
 
         
     }

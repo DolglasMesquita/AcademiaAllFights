@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "/home/dolglas/.dotnet/store/|arch|/|tfm|",
-      "/home/dolglas/.nuget/packages"
+      "C:\\Users\\dolgl\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\dolgl\\.nuget\\packages"
     ]
   }
 }

@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace AcademiaAllFights.API.Models
 {
     public class AlunoArteMarcial
@@ -12,11 +14,13 @@ namespace AcademiaAllFights.API.Models
             this.AlunoId = alunoId;
             this.ArteMarcialId = arteMarcialId;
         }
-        
+
         public int AlunoId { get; set; }
         public int ArteMarcialId { get; set; }
+
+        [JsonIgnore]
         public Aluno Aluno { get; set; }
-        public ArteMarcial ArtesMarciais { get; set; }
+        public ArteMarcial ArteMarcial { get; set; }
 
     }
 }
